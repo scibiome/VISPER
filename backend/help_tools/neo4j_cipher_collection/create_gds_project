@@ -1,0 +1,14 @@
+CALL gds.graph.project(
+  'graph',            
+  'Protein',             
+  'PPI_ASSOCIATION'               
+)
+
+
+CALL gds.graph.project(
+  'graph',
+  'Protein',
+  {PPI_ASSOCIATION: {orientation: 'UNDIRECTED'}}
+)
+
+ube1I: 	01b0676a-9564-4e3c-b920-ce0e9fbce649

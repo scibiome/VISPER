@@ -1,0 +1,140 @@
+
+LOAD CSV WITH HEADERS FROM 'file:///ProCan-DepMapSanger_protein_matrix_modified.txt' AS row
+WITH split(row.Project_Identifier, ';') AS result
+MATCH (cell:CellLine {name: result[1]})
+SET row.Project_Identifier = result[0]
+
+FOREACH (protein IN keys(row)[1..] |
+    WITH  split(protein, ';') AS proteinname
+    MATCH (p:Protein {name: proteinname})
+    CREATE (cell)-[:EXPRESSES {value: toFloat(row[protein])}]-(p)
+    WHERE row[protein] IS NOT NULL
+)
+
+CALL apoc.periodic.iterate(
+  'LOAD CSV WITH HEADERS FROM "file:///ProCan-DepMapSanger_protein_matrix_modified.txt" AS row FIELDTERMINATOR "\\t" RETURN row',
+  
+  'WITH split(row.Project_Identifier, \';\') AS result, row AS row
+   MATCH (cell:CellLine {name: result[1]})
+   SET row.Project_Identifier = result[0]
+
+   FOREACH (protein IN keys(row)[1..] |
+     WITH split(protein, \';\') AS proteinname
+     MATCH (p:Protein {name: proteinname[0]})
+     WHERE row[protein] IS NOT NULL
+     CREATE (cell)-[:EXPRESSES {value: toFloat(row[protein])}]->(p)
+   )',
+  
+  { batchSize: 100000}
+);
+
+CALL apoc.periodic.iterate(
+  'LOAD CSV WITH HEADERS FROM "file:///ProCan-DepMapSanger_protein_matrix_modified.txt" AS row FIELDTERMINATOR "\t" RETURN row',
+  
+  'WITH row, split(row.Project_Identifier, \';\') AS result
+   MATCH (cell:Cell_Line {Sample_Name: result[1]})
+   SET cell.Project_Identifier = result[0]
+
+   WITH row, cell, keys(row) AS proteins
+   UNWIND proteins[1..] AS protein
+   WITH row, cell, protein, split(protein, \';\') AS proteinname
+   MATCH (p:Protein)
+   WHERE row[protein] IS NOT NULL AND proteinname[0] in p.SWISS_PROT_Accessions_Interactor
+   CREATE (cell)-[:EXPRESSES {value: toFloat(row[protein])}]->(p)',
+  
+  { batchSize: 100000}
+);
+
+CREATE 
+CALL apoc.periodic.iterate(
+  'LOAD CSV WITH HEADERS FROM "file:///Cell_Line_Protein_1.csv" AS row FIELDTERMINATOR "\t" RETURN row',
+  
+  'WITH row
+   MATCH (cell:Cell_Line {Sample_Name: row.Cell_Name})
+   SET cell.Project_Identifier = row.Project_Identifier
+   WITH row, cell
+   MATCH (p:Protein)
+   WHERE row.Protein_Name IN p.SWISS_PROT_Accessions_Interactor
+   CREATE (cell)-[:EXPRESSES {value: toFloat(row.value)}]->(p)',
+  
+  { batchSize: 100000, parallel: true}
+);
+
+CREATE INDEX FOR (p:Protein) ON (p.SWISS_PROT_Accessions_Interactor);
+CREATE INDEX FOR (c:Cell_Line) ON (c.Sample_Name);
+
+
+CALL apoc.periodic.iterate(
+  'LOAD CSV WITH HEADERS FROM "file:///Cell_Line_Protein_1.csv" AS row FIELDTERMINATOR "\t" RETURN row',
+  
+  'MATCH (cell:Cell_Line {Sample_Name: row.Cell_Name})
+     SET cell.Project_Identifier = row.Project_Identifier
+   WITH row, cell
+   MATCH (p:Protein{SWISS: row.Protein_Name})
+   CREATE (cell)-[r:EXPRESSES]->(p)
+    SET r.value = toFloat(row.value)',
+  { batchSize: 100000, parallel: true}
+);
+
+MATCH ()-[:EXPRESSES]->()
+RETURN count(*) AS expressionCount;
+
+CALL apoc.periodic.iterate(
+  'LOAD CSV WITH HEADERS FROM "file:///Cell_Line_Protein_1.csv" AS row FIELDTERMINATOR "\t" RETURN row',
+  
+  'MATCH (cell:Cell_Line {Sample_Name: row.Cell_Name})
+     SET cell.Project_Identifier = row.Project_Identifier
+   WITH row, cell
+   MATCH (p:Protein{SWISS: row.Protein_Name, Organism_Name_Interactor: "Homo sapiens"})
+   WHERE toLower(p.name) = toLower(row.Gene_Name) or ANY(sname IN p.Synonyms_Interactor WHERE toLower(sname) = toLower(row.Gene_Name)) 
+   CREATE (cell)-[r:EXPRESSES]->(p)
+    SET r.value = toFloat(row.value)',
+  { batchSize: 100000, parallel: true}
+);
+
+
+LOAD CSV WITH HEADERS FROM "file:///Cell_Line_Protein_1.csv" AS row FIELDTERMINATOR "\t"
+WITH row
+OPTIONAL MATCH (p:Protein)
+WHERE toLower(p.name) = toLower({row.Gene_Name}) and p.SWISS = row.Protein_Name and p.Organism_Name_Interactor="Homo sapiens"
+WITH p
+WHERE p IS NULL
+OPTIONAL MATCH (p2:Protein)
+WHERE ANY(sname IN p2.Synonyms_Interactor WHERE toLower(sname) = toLower({row.x_id})) and p2.Organism_Name_Interactor="Homo sapiens" and p.SWISS = row.Protein_Name
+WITH COALESCE(p, p2) AS protein, row
+RETURN row.Gene_Name, protein.name
+
+
+LOAD CSV WITH HEADERS FROM "file:///Cell_Line_Protein_1.csv" AS row FIELDTERMINATOR "\t"
+WITH row
+MATCH (p:Protein)
+WHERE toLower(p.name) = toLower(row.Gene_Name) and p.SWISS = row.Protein_Name and p.Organism_Name_Interactor="Homo sapiens"
+WITH p, row
+WHERE p IS NULL
+MATCH (p2:Protein)
+WHERE ANY(sname IN p2.Synonyms_Interactor WHERE toLower(sname) = toLower(row.Gene_Name)) and p2.Organism_Name_Interactor="Homo sapiens" and p.SWISS = row.Protein_Name
+WITH COALESCE(p, p2) AS protein, row
+RETURN row.Gene_Name, protein.name
+
+                                WITH $swiss AS swiss, $gene_name AS gene_name
+                                OPTIONAL MATCH (p:Protein)
+                                WHERE ANY(sname IN p.Synonyms_Interactor WHERE toLower(sname) = toLower(gene_name)) and p.Organism_Name_Interactor = "Homo sapiens" and toLower(p.name) = toLower(gene_name)  
+                                WITH p, swiss, gene_name, COUNT(p) AS countP
+                                WHERE countP <> 1
+                                RETURN gene_name, swissOPTIONAL MATCH (p2:Protein)-[:HAS_SWISS]->(s2:SWISS)
+                                WHERE s2.name = swiss_name and p2.Organism_Name_Interactor = "Homo sapiens" and toLower(p2.name) = toLower(gene_name)
+                                WITH gene_name, swiss_name, COUNT(p2) AS pCount2
+                                WHERE pCount2 <> 1
+                                OPTIONAL MATCH (p3:Protein)-[:HAS_SWISS]->(s3:SWISS)
+                                WHERE s3.name = swiss_name and p3.Organism_Name_Interactor = "Homo sapiens" and  ANY(sname IN p3.Synonyms_Interactor WHERE toLower(sname) = toLower(gene_name))
+                                WITH gene_name, swiss_name, COUNT(p3) AS pCount3
+                                WHERE pCount3 <> 1OPTIONAL MATCH (p2:Protein)
+                                    WHERE p2.Organism_Name_Interactor = "Homo sapiens" and  (toLower(p2.name) = toLower(gene_name) or ANY(sname IN p2.Synonyms_Interactor WHERE toLower(sname) = toLower(gene_name))) and p2.SWISS_PROT_Accessions_Interactor = ["-"]
+                                    WITH gene_name, swiss_name, COUNT(p2) AS pCount
+                                    WHERE pCount < 1
+
+
+                                                                        OPTIONAL MATCH (p3:Protein)-[:HAS_SWISS]->(s3:SWISS)
+                                    WHERE s3.name = swiss_name and p3.Organism_Name_Interactor = "Homo sapiens"
+                                    WITH s3, gene_name, swiss_name, COUNT(p3) AS pCount3
+                                    WHERE pCount3 < 1

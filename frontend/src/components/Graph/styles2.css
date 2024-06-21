@@ -1,0 +1,17 @@
+.ant-table {
+    font-size: 9px;
+  }
+  
+  /* row data */
+  .ant-table-tbody > tr > td {
+    height: 5px;
+    padding: 4px;
+  }
+  /* row tags */
+  .my-tag {
+    font-size: 12px;
+  }
+  .ant-table-thead > tr > th {
+    height: 5px;
+    padding: 4px;
+  } 

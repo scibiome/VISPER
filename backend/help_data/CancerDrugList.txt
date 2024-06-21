@@ -1,0 +1,476 @@
+
+ABVD
+AC
+ATO
+ATRA
+Abemaciclib (Verzenois)
+Abiraterone (Zytiga)
+Abraxane
+Abstral
+Acalabrutinib
+Actimorph
+Actinomycin D
+Actiq
+Adriamycin
+Afatinib (Giotrif)
+Afinitor
+Aldara
+Aldesleukin (IL-2, Proleukin or interleukin 2)
+Alectinib
+Alectinib (Alecensa)
+Alemtuzumab (Campath, MabCampath)
+Alkeran
+Amsacrine (Amsidine, m-AMSA)
+Amsidine
+Anastrazole (Arimidex)
+Apalutamide
+Ara C
+Arimidex
+Aromasin
+Arsenic trioxide and Tretinoin
+Asparaginase (Spectrila, Erwinase, Oncaspar)
+Atezolizumab
+Avelumab
+Axitinib (Inlyta)
+Azacitidine (Vidaza, Onureg)
+
+B
+
+BEACOPP
+BEAM
+Bendamustine (Levact)
+Besponsa
+Bevacizumab (Avastin)
+Bexarotene (Targretin)
+Bicalutamide (Casodex)
+Bleomycin
+Bleomycin, etoposide and platinum (BEP)
+Blinatumomab (Blincyto)
+Bortezomib (Velcade)
+Bortezomib thalidomide and dexamethasone (VTD)
+Bortezomib, cyclophosphamide and dexamethasone (VCD)
+Bortezomib, melphalan and prednisalone (VMP)
+Bosulif
+Bosutinib (Bosulif)
+Brentuximab
+Brigatinib (Alunbrig)
+Buserelin (Suprefact)
+Busulfan
+
+C
+
+CAPE-OX
+CAPOX
+CAV
+CCNU
+CHOP
+Cabazitaxel (Jevtana)
+Cabometyx
+Cabozantinib (Cometriq, Cabometyx)
+Caelyx
+Calpol
+Campto
+Capecitabine (Xeloda)
+Caprelsa
+CarboTaxol
+Carboplatin
+Carboplatin and etoposide
+Carboplatin and paclitaxel
+Carfilzomib and dexamethasone
+Carmustine (BCNU)
+Casodex
+Cemiplimab
+Ceritinib (Zykadia)
+Cetuximab (Erbitux)
+Chlorambucil (Leukeran)
+Cisplatin
+Cisplatin and capecitabine (CX)
+Cisplatin and fluorouracil (5FU)
+Cisplatin, etoposide and ifosfamide (VIP)
+Cisplatin, fluorouracil (5FU) and trastuzumab
+Cladribine
+Clasteon
+Co-codamol (Kapake, Solpadol, Tylex)
+Cometriq
+Cosmegen
+Crisantaspase
+Crizotinib (Xalkori)
+Cyclophosphamide
+Cyclophosphamide, thalidomide and dexamethasone (CTD)
+Cyprostat
+Cyproterone acetate
+Cytarabine (Ara C, cytosine arabinoside)
+Cytarabine into spinal fluid (intrathecal cytarabine)
+Cytosine arabinoside
+
+D
+
+DHAP
+DTIC
+Dabrafenib (Tafinlar)
+Dabrafenib and trametinib
+Dacarbazine (DTIC)
+Dacomitinib
+Dactinomycin (actinomycin D)
+Daratumumab
+Daratumumab, bortezomib, thalidomide and dexamethasone (DVTD)
+Darolutamide (Nubeqa)
+Darzalex
+Dasatinib
+Daunorubicin
+Daunorubicin, cytarabine and midostaurin
+Decapeptyl SR
+Degarelix (Firmagon)
+Denosumab (Prolia, Xgeva)
+Dexamethasone
+Diamorphine
+Disodium pamidronate
+Disprol
+Docetaxel (Taxotere)
+Docetaxel, cisplatin and fluorouracil (TPF)
+Doxifos
+Doxorubicin
+Doxorubicin and ifosfamide
+Durogesic
+Durvalumab (Imfinzi)
+
+E
+
+EC
+ECF
+EOF
+EOX
+EP (Etoposide and cisplatin)
+ESHAP
+Effentora
+Encorafenib and binimetinib
+Encorafenib and cetuximab
+Entrectinib (Rozlytrek)
+Enzalutamide
+Epirubicin
+Epirubicin cisplatin and capecitabine (ECX)
+Epirubicin, carboplatin and capecitabine (ECarboX)
+Erbitux
+Eribulin (Halaven)
+Erlotinib (Tarceva)
+Erwinase
+Etopophos
+Etoposide (Etopophos)
+Everolimus (Afinitor)
+Evoltra
+Exemestane (Aromasin)
+
+F
+
+FOLFIRINOX
+FOLFOX
+FOLFOXIRI
+Faslodex
+Femara
+Fentanyl
+Firmagon
+Fludara
+Fludarabine (Fludara)
+Fludarabine, cyclophosphamide and rituximab (FCR)
+Fluorouracil (5FU)
+Fluorouracil (5FU) and mitomycin C
+Fluorouracil, Leucovorin, Oxaliplatin and Docetaxel (FLOT)
+Flutamide
+Folinic acid, fluorouracil and irinotecan (FOLFIRI)
+Fotivda
+Fulvestrant (faslodex)
+
+G
+
+G-CSF
+Gefitinib (Iressa)
+GemCarbo (gemcitabine and carboplatin)
+GemTaxol
+Gemcitabine (Gemzar)
+Gemcitabine and capecitabine (GemCap)
+Gemcitabine and cisplatin (GC)
+Gemcitabine and nab-paclitaxel
+Gemcitabine and paclitaxel (GemTaxol)
+Gemtuzumab ozogamicin, daunorubicin and cytarabine
+Gemzar
+Giotrif
+Gliadel (carmustine wafers)
+Glivec
+Gonapeptyl Depot
+Goserelin (Zoladex) for breast cancer
+Goserelin for prostate cancer
+Granulocyte colony stimulating factor (G-CSF)
+
+H
+
+Halaven
+Herceptin
+Herzuma
+Hycamtin
+Hydrea
+Hydrocortisone
+Hydroxycarbamide (Hydrea)
+Hydroxyurea
+
+I
+
+ICE
+IL-2
+IPE
+Ibandronic acid (Bondronat)
+Ibrance
+Ibrutinib (Imbruvica)
+Ibuprofen
+Iclusig
+Idarubicin
+Ifosfamide (Mitoxana)
+Imatinib (Glivec)
+Imiquimod cream (Aldara)
+Inotuzumab ozogamicin
+Interleukin
+Ipilimumab (Yervoy)
+Ipilimumab and nivolumab
+IrCap
+Iressa
+Irinotecan (Campto)
+Irinotecan and capecitabine (Xeliri)
+Irinotecan de Gramont
+Irinotecan modified de Gramont
+Ixazomib, lenalidomide and dexamethasone
+
+J
+
+Jevtana
+
+K
+
+Kadcyla
+Kapake
+Keytruda
+Kisqali
+
+L
+
+Lanreotide (Somatuline)
+Larotrectinib (Vitrakvi)
+Lenalidomide (Revlimid)
+Lenvatinib
+Letrozole (Femara)
+Leukeran
+Leuprorelin
+Leustat
+Levact
+Liposomal doxorubicin
+Litak
+Lomustine
+Lonsurf
+Lorlatinib (Lorviqua)
+Lutrate
+Lynparza
+Lysodren
+
+M
+
+MAP
+MMM
+MPT
+MST Continus
+MVAC
+MXL
+MabCampath
+Mabthera
+Medroxyprogesterone acetate (Provera)
+Megace
+Megestrol acetate (Megace)
+Melphalan (Alkeran)
+Mepact
+Mercaptopurine (Xaluprine)
+Methotrexate
+Methylprednisolone
+Mifamurtide
+Mitomycin C
+Mitotane (Lysodren)
+Mitoxana
+Mitoxantrone (Mitozantrone)
+Mobocertinib
+Mobocertinib (Exkivity)
+Modified de Gramont
+Morphgesic SR
+Morphine
+m-AMSA
+
+N
+
+Nab paclitaxel (Abraxane)
+Navelbine
+Nelarabine (Atriance)
+Neratinib (Nerlynx)
+Nerlynx
+Nexavar
+Nilotinib (Tasigna)
+Nintedanib
+Nipent
+Niraparib (Zejula)
+Nivolumab (Opdivo)
+
+O
+
+Obinutuzumab (Gazyvaro)
+Octreotide
+Olaparib (Lynparza)
+Ontruzant
+Onureg
+Opdivo
+Oramorph
+Osimertinib (Tagrisso)
+OxCap
+Oxaliplatin
+Oxaliplatin and capecitabine (Xelox)
+
+P
+
+PC
+PE
+PMitCEBO
+Paclitaxel (Taxol)
+Paclitaxel and carboplatin (PC, CarboTaxol)
+Palbociclib (Ibrance)
+Pamidronate
+Panadol
+Panitumumab (Vectibix)
+Panobinostat, bortezomib and dexamethasone
+Paracetamol
+Pazopanib (Votrient)
+Peginterferon alfa 2a
+Pembrolizumab (Keytruda)
+Pemetrexed (Alimta)
+Pemetrexed and carboplatin
+Pemetrexed and cisplatin
+Pemigatinib
+Pentostatin (Nipent)
+Perjeta
+Pertuzumab (Perjeta)
+Polatuzumab vedotin, bendamustine and rituximab (Pola-BR)
+Pomalidomide and dexamethasone
+Ponatinib
+Prednisolone
+Procarbazine
+Procarbazine, lomustine and vincristine (PCV)
+Proleukin
+Prolia
+Prostap
+Provera
+
+R
+
+R-CHOP
+R-CVP
+R-DHAP
+R-ESHAP
+R-GCVP
+R-Idelalisib (Zydelig)
+RICE
+Raloxifene
+Raltitrexed (Tomudex)
+Regorafenib (Stivarga)
+Revlimid
+Ribociclib (Kisqali)
+Rituximab
+Rixathon
+Rubraca
+Rucaparib (Rubraca)
+Ruxience
+Ruxolitinib
+
+S
+
+Selpercatinib
+Sevredol
+Sodium clodronate (Clasteon, Loron)
+Solpadol
+Sorafenib
+Steroids (dexamethasone, prednisolone, methylprednisolone and hydrocortisone)
+Stivarga
+Streptozocin (Zanosar)
+Sunitinib (Sutent)
+Sutent
+
+T
+
+TIP
+Tafinlar
+Tagrisso
+Talimogene laherparepvec (T-VEC)
+Tamoxifen
+Tarceva
+Targretin
+Tasigna
+Taxol
+Taxotere
+Taxotere and cyclophosphamide (TC)
+Tecentriq
+Temodal
+Temozolomide (Temodal)
+Tepadina
+Tepotinib
+Thalidomide
+Thiotepa (Tepadina)
+Tivozanib (Fotivda)
+Tomudex
+Topotecan (Hycamtin)
+Trabectedin (Yondelis)
+Trastuzumab (Herceptin)
+Trastuzumab and pertuzumab
+Trastuzumab emtansine (Kadcyla)
+Treosulfan
+Trifluridine and tipiracil (Lonsurf)
+Triptorelin
+Trisenox
+Truxima
+Tucatinib, trastuzumab and capecitabine
+Tylex
+
+V
+
+VDC/IE
+VIDE
+Vargatef
+VeIP
+Vectibix
+Velcade
+Vemurafenib (Zelboraf)
+Venetoclax (Venclyxto)
+Vesanoid
+Vidaza
+Vinblastine
+Vincristine
+Vincristine, actinomycin D and cyclophosphamide (VAC)
+Vincristine, actinomycin D and ifosfamide (VAI)
+Vinorelbine (Navelbine)
+Votrient
+
+X
+
+XELOX
+Xalkori
+Xeloda
+Xgeva
+Xtandi
+
+Y
+
+Yervoy
+Yondelis
+
+Z
+
+Zanosar
+Zelboraf
+Zoladex (breast cancer)
+Zoladex (prostate cancer)
+Zoledronic acid (Zometa)
+Zometa
+Zomorph
+Zydelig
+Zytiga
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+<key id="name" for="node" attr.name="name" attr.type="string"/>
+<key id="label" for="node" attr.name="label" attr.type="string"/>
+<key id="label" for="edge" attr.name="label" attr.type="string"/>
+<key id="node_value" for="node" attr.name="node_value" attr.type="string"/>
+<key id="edge_value" for="edge" attr.name="edge_value" attr.type="string"/>
+<graph id="G" edgedefault="directed">
+<node id="n1" label="Protein"><data key="label">Protein</data><data key="name">Protein1</data><data key="node_value">value1</data></node>
+<node id="n2" label="Protein"><data key="label">Protein</data><data key="name">Protein2</data><data key="node_value">value2</data></node>
+<node id="n3" label="Protein"><data key="label">Protein</data><data key="name">Protein3</data><data key="node_value">value3</data></node>
+<node id="n4" label="Drug"><data key="label">Drug</data><data key="name">Drug1</data><data key="node_value">value4</data></node>
+<node id="n5" label="Drug"><data key="label">Drug</data><data key="name">Drug2</data><data key="node_value">value5</data></node>
+<edge id="e1" source="n1" target="n4" label="CONNECTED"><data key="label">CONNECTED</data><data key="edge_value">value12</data></edge>
+<edge id="e2" source="n2" target="n5" label="CONNECTED"><data key="label">CONNECTED</data><data key="edge_value">value13</data></edge>
+<edge id="e3" source="n3" target="n5" label="CONNECTED"><data key="label">CONNECTED</data><data key="edge_value">value14</data></edge>
+<edge id="e4" source="n4" target="n5" label="CONNECTED2"><data key="label">CONNECTED2</data><data key="edge_value">value15</data></edge>
+</graph>
+</graphml>

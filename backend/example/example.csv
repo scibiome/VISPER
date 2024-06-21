@@ -1,0 +1,4 @@
+drug;protein;protein_value;drug_value;connection_value
+Drug1;Protein1;value1;0.278;0.789
+Drug2;Protein2;value1;0.278;0.789
+Drug2;Protein3;value1;0.278;0.789

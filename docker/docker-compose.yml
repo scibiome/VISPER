@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  fastapi:
+    image: thegoldenphoenix/fastapi:version1.0
+    ports:
+      - "8000:8000"
+    depends_on:
+      - neo4j
+    environment:
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=workwork
+
+  react-nginx-app:
+    stdin_open: true
+    image: thegoldenphoenix/react:version1.0
+    expose:
+      - 3000
+    ports:
+      - 3000:80
+    environment:
+        - CHOKIDAR_USEPOLLING=true
+
+  neo4j:
+    image: thegoldenphoenix/neo4j:version1.0
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
+      - NEO4J_AUTH=neo4j/workwork

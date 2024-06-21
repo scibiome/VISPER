@@ -1,0 +1,35 @@
+.next-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
+  .next-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    background-color: grey;
+  }
+
+  .red-rectangle {
+    width: 400px; /* Adjust the width as needed */
+    margin: 0 auto;
+    height: 50px; /* Adjust the height as needed */
+    background-color: red;
+    border-radius: 10px; /* Rounded edges */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.rectangle-text {
+    color: white;
+    font-size: 18px; /* Adjust the font size as needed */
+    font-weight: bold;
+    text-align: center;
+    padding: 10px; /* Add padding to center the text */
+}

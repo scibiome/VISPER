@@ -1,0 +1,12 @@
+LOAD CSV WITH HEADERS FROM 'file:///mmc7.csv' AS row
+FIELDTERMINATOR ';'
+OPTIONAL MATCH (p:Protein)
+WHERE toLower(p.name) = toLower(row.x_id) AND p.Organism_Name_Interactor="Homo sapiens"
+WITH row, p
+WHERE p IS NULL
+OPTIONAL MATCH (p2:Protein)
+WHERE ANY(sname IN p2.Synonyms_Interactor WHERE toLower(sname) = toLower(row.x_id)) AND p2.Organism_Name_Interactor = "Homo sapiens"
+WITH row, p, p2
+WITH row, CASE WHEN p IS NOT NULL THEN p ELSE p2 END AS protein
+WITH row, protein, CASE WHEN protein IS NULL THEN [row.x_id] ELSE [] END AS unmatchedProteins
+RETURN DISTINCT unmatchedProteins;

@@ -1,0 +1,7 @@
+__pycache__
+challenge_data
+help_data
+help_tools
+!help_tools/neo4j/output.csv
+neo4j_database_dump
+similarity_data
