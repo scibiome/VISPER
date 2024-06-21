@@ -67,7 +67,7 @@ The executable jar files of apoc-5.12.0-core and neo4j-graph-data-science-2.5.5 
 
 - Install all necessary Python and JS libraries.
 - Setup a local Neo4j database (Version: 5.12.0 Community Edition) with the APOC and  Graph Data Science Library.
-&rarr; Load [backup](./backend/neo4j_database_dump/neo4j.dump) into the new Neo4j database.
+&rarr; Load [backup](https://cloud.tu-braunschweig.de/s/ckAM92r3FNDpo6F) into the new Neo4j database.
 
 ```
 neo4j stop
@@ -138,7 +138,7 @@ CALL gds.graph.project("graph", "Protein", {PPI: {orientation: "UNDIRECTED"}});
 ### Server
 - Install all necessary python and js libraries
 - Setup a local Neo4j database (Version: 5.12.0 Community Edition) with the APOC and  Graph Data Science Library.
-&rarr; load [backup](./backend/neo4j_database_dump/neo4j.dump) in to the new neo4j database
+&rarr; load [backup](https://cloud.tu-braunschweig.de/s/ckAM92r3FNDpo6F) in to the new neo4j database
 ```
 neo4j stop
 neo4j-admin database load --from-path=C:\backup\backup neo4j --overwrite-destination=true
