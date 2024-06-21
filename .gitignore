@@ -1,0 +1,14 @@
+node_modules/
+node_modules
+backend/help_data/drugbank
+backend/challenge_data
+backend/__pycache__
+db/data/transactions
+db/data/databases
+db/data/server_id
+db/logs/*.log
+db/plugins/*.jar
+backend/neo4j_database_dump
+build
+backend/help_data/allInfoDrugBank.json
+backend/help_data/info.txt
