@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Dropdown, Menu, Collapse, Modal, Select, Row, Col, Slider, InputNumber, Tooltip, Checkbox } from 'antd';
+import { Table, Button, Dropdown, Menu, Collapse, Modal, Select, Row, Col, Slider, InputNumber, Tooltip, Checkbox, Radio } from 'antd';
 import { DeleteOutlined, GlobalOutlined, RadarChartOutlined, CaretUpOutlined, CaretDownOutlined, EnvironmentOutlined } from '@ant-design/icons';
 import axios from "axios";
 import neo4j from "neo4j-driver";
@@ -36,6 +36,7 @@ const Panel = ({ selectedNodes, cy, setCy, setSelectedNodes, nodeTypes, selected
   const [maximumDegree, setMaximumDegree] = useState(0);
   const [orderAttribute, setOrderAttribute] = useState("");
   const [selectedDrugTargetAlgorithmus, setSelectedDrugTargetAlgorithmus] = useState('Betweenness centrality');
+  const [selectedOption, setSelectedOption] = useState('option1');
 
   const [graphInformation, setGraphInformation] = useState({ 'nodes': [{ 'name': 'Cell_Line', 'attributes': [{ 'name': 'tissue', 'type': 'list', 'values': ['Haematopoietic and Lymphoid', 'Lung', 'Stomach', 'Breast', 'Bone', 'Ovary', 'Skin', 'Head and Neck', 'Endometrium', 'Adrenal Gland', 'Central Nervous System', 'Pancreas', 'Prostate', 'Peripheral Nervous System', 'Large Intestine', 'Cervix', 'Kidney', 'Liver', 'Soft Tissue', 'Biliary Tract', 'Bladder', 'Esophagus', 'Testis', 'Thyroid', 'Vulva', 'Uterus', 'Small Intestine', 'Placenta'], 'valuesChange': ['Haematopoietic and Lymphoid', 'Lung', 'Stomach', 'Breast', 'Bone', 'Ovary', 'Skin', 'Head and Neck', 'Endometrium', 'Adrenal Gland', 'Central Nervous System', 'Pancreas', 'Prostate', 'Peripheral Nervous System', 'Large Intestine', 'Cervix', 'Kidney', 'Liver', 'Soft Tissue', 'Biliary Tract', 'Bladder', 'Esophagus', 'Testis', 'Thyroid', 'Vulva', 'Uterus', 'Small Intestine', 'Placenta'] }, { 'name': 'growth_properties', 'type': 'list', 'values': ['Suspension', 'Adherent', 'Unknown', 'Semi-Adherent'], 'valuesChange': ['Suspension', 'Adherent', 'Unknown', 'Semi-Adherent'] }, { 'name': 'cancer_type', 'type': 'list', 'values': ["B-Cell Non-Hodgkin's Lymphoma", 'Plasma Cell Myeloma', 'Acute Myeloid Leukemia', 'Other Solid Carcinomas', 'Gastric Carcinoma', 'T-Lymphoblastic Leukemia', 'Breast Carcinoma', "Ewing's Sarcoma", 'Ovarian Carcinoma', 'Melanoma', 'Head and Neck Carcinoma', 'Endometrial Carcinoma', 'Glioblastoma', 'Small Cell Lung Carcinoma', 'Pancreatic Carcinoma', 'Mesothelioma', 'B-Lymphoblastic Leukemia', 'Prostate Carcinoma', 'Neuroblastoma', 'Non-Small Cell Lung Carcinoma', 'Chronic Myelogenous Leukemia', "Burkitt's Lymphoma", 'Colorectal Carcinoma', 'Cervical Carcinoma', 'Oral Cavity Carcinoma', 'Kidney Carcinoma', 'Hepatocellular Carcinoma', 'Non-Cancerous', 'Biliary Tract Carcinoma', 'Glioma', 'Squamous Cell Lung Carcinoma', 'Bladder Carcinoma', 'Esophageal Squamous Cell Carcinoma', "Hodgkin's Lymphoma", 'Rhabdomyosarcoma', 'Thyroid Gland Carcinoma', "T-Cell Non-Hodgkin's Lymphoma", 'Esophageal Carcinoma', 'Other Blood Carcinomas', 'Osteosarcoma', 'Chondrosarcoma'], 'valuesChange': ["B-Cell Non-Hodgkin's Lymphoma", 'Plasma Cell Myeloma', 'Acute Myeloid Leukemia', 'Other Solid Carcinomas', 'Gastric Carcinoma', 'T-Lymphoblastic Leukemia', 'Breast Carcinoma', "Ewing's Sarcoma", 'Ovarian Carcinoma', 'Melanoma', 'Head and Neck Carcinoma', 'Endometrial Carcinoma', 'Glioblastoma', 'Small Cell Lung Carcinoma', 'Pancreatic Carcinoma', 'Mesothelioma', 'B-Lymphoblastic Leukemia', 'Prostate Carcinoma', 'Neuroblastoma', 'Non-Small Cell Lung Carcinoma', 'Chronic Myelogenous Leukemia', "Burkitt's Lymphoma", 'Colorectal Carcinoma', 'Cervical Carcinoma', 'Oral Cavity Carcinoma', 'Kidney Carcinoma', 'Hepatocellular Carcinoma', 'Non-Cancerous', 'Biliary Tract Carcinoma', 'Glioma', 'Squamous Cell Lung Carcinoma', 'Bladder Carcinoma', 'Esophageal Squamous Cell Carcinoma', "Hodgkin's Lymphoma", 'Rhabdomyosarcoma', 'Thyroid Gland Carcinoma', "T-Cell Non-Hodgkin's Lymphoma", 'Esophageal Carcinoma', 'Other Blood Carcinomas', 'Osteosarcoma', 'Chondrosarcoma'] }, { 'name': 'sample_treatment', 'type': 'list', 'values': ['Unknown', 'None', 'Chemotherapy;Radiotherapy', 'Chemotherapy', 'Radioiodine Therapy', 'Steroid', 'Radiotherapy'], 'valuesChange': ['Unknown', 'None', 'Chemotherapy;Radiotherapy', 'Chemotherapy', 'Radioiodine Therapy', 'Steroid', 'Radiotherapy'] }, { 'name': 'Cancer_type', 'type': 'list', 'values': ["B-Cell Non-Hodgkin's Lymphoma", 'Plasma Cell Myeloma', 'Acute Myeloid Leukemia', 'Carcinoid Tumour', 'Gastric Carcinoma', 'T-Lymphoblastic Leukemia', 'Breast Carcinoma', "Ewing's Sarcoma", 'Ovarian Carcinoma', 'Melanoma', 'Head and Neck Carcinoma', 'Endometrial Carcinoma', 'Other Solid Carcinomas', 'Glioblastoma', 'Small Cell Lung Carcinoma', 'Pancreatic Carcinoma', 'Mesothelioma', 'B-Lymphoblastic Leukemia', 'Prostate Carcinoma', 'Neuroblastoma', 'Non-Small Cell Lung Carcinoma', 'Chronic Myelogenous Leukemia', "Burkitt's Lymphoma", 'Colorectal Carcinoma', 'Cervical Carcinoma', 'Kidney Carcinoma', 'Hepatocellular Carcinoma', 'T-Lymphoblastic Lymphoma', 'Leiomyosarcoma', 'Non-Cancerous', 'Biliary Tract Carcinoma', 'Glioma', 'Bladder Carcinoma', 'Esophageal Carcinoma', "Hodgkin's Lymphoma", 'Other Blood Cancers', 'Other Sarcomas', 'Rhabdomyosarcoma', 'Thyroid Gland Carcinoma', "T-Cell Non-Hodgkin's Lymphoma", 'Vulvar carcinoma', 'Hairy Cell Leukemia', 'Osteosarcoma', 'Chondrosarcoma', 'Uncertain'], 'valuesChange': ["B-Cell Non-Hodgkin's Lymphoma", 'Plasma Cell Myeloma', 'Acute Myeloid Leukemia', 'Carcinoid Tumour', 'Gastric Carcinoma', 'T-Lymphoblastic Leukemia', 'Breast Carcinoma', "Ewing's Sarcoma", 'Ovarian Carcinoma', 'Melanoma', 'Head and Neck Carcinoma', 'Endometrial Carcinoma', 'Other Solid Carcinomas', 'Glioblastoma', 'Small Cell Lung Carcinoma', 'Pancreatic Carcinoma', 'Mesothelioma', 'B-Lymphoblastic Leukemia', 'Prostate Carcinoma', 'Neuroblastoma', 'Non-Small Cell Lung Carcinoma', 'Chronic Myelogenous Leukemia', "Burkitt's Lymphoma", 'Colorectal Carcinoma', 'Cervical Carcinoma', 'Kidney Carcinoma', 'Hepatocellular Carcinoma', 'T-Lymphoblastic Lymphoma', 'Leiomyosarcoma', 'Non-Cancerous', 'Biliary Tract Carcinoma', 'Glioma', 'Bladder Carcinoma', 'Esophageal Carcinoma', "Hodgkin's Lymphoma", 'Other Blood Cancers', 'Other Sarcomas', 'Rhabdomyosarcoma', 'Thyroid Gland Carcinoma', "T-Cell Non-Hodgkin's Lymphoma", 'Vulvar carcinoma', 'Hairy Cell Leukemia', 'Osteosarcoma', 'Chondrosarcoma', 'Uncertain'] }, { 'name': 'Tissue_type', 'type': 'list', 'values': ['Haematopoietic and Lymphoid', 'Lung', 'Stomach', 'Breast', 'Bone', 'Ovary', 'Skin', 'Head and Neck', 'Endometrium', 'Adrenal Gland', 'Central Nervous System', 'Pancreas', 'Prostate', 'Peripheral Nervous System', 'Other tissue', 'Large Intestine', 'Cervix', 'Kidney', 'Liver', 'Soft Tissue', 'Biliary Tract', 'Bladder', 'Esophagus', 'Testis', 'Thyroid', 'Vulva', 'Small Intestine', 'Placenta'], 'valuesChange': ['Haematopoietic and Lymphoid', 'Lung', 'Stomach', 'Breast', 'Bone', 'Ovary', 'Skin', 'Head and Neck', 'Endometrium', 'Adrenal Gland', 'Central Nervous System', 'Pancreas', 'Prostate', 'Peripheral Nervous System', 'Other tissue', 'Large Intestine', 'Cervix', 'Kidney', 'Liver', 'Soft Tissue', 'Biliary Tract', 'Bladder', 'Esophagus', 'Testis', 'Thyroid', 'Vulva', 'Small Intestine', 'Placenta'] }, { 'name': 'msi_status', 'type': 'list', 'values': ['MSS', 'MSI'], 'valuesChange': ['MSS', 'MSI'] }, { 'name': 'sample_treatment_details', 'type': 'list', 'values': ['adriamycin and taxol', '5 years with Busulfan (1979-1984)', 'transcatheter arterial embolization with lipoidol plus doxorubicin', 'Cisplatin', 'treated by transcatheter arterial embolization with lipoidol plus a combination of doxorubicin and mitomycin C', 'Three courses of CAP; cyclophosphamide, adriamycin and cisplatin. Three courses of etoposide and cisplatin.', 'Six courses of CAP; cyclophosphamide, adriamycin and cis-platinum.', '5-FU', 'Cyclophosphamide', 'yclophosphamide, hydroxydaunomycin, vincristine, and prednisone (CHOP chemotherapy)', '7 year chlorambucil', '5-FU + Doxorubicin + Mitomycin C', '5 fluorouracil, doxorubicin and mitomycin C', 'Five courses of CAP; cyclophosphamide, adriamycin and cis-platinum.', '3 cycles of chemotherapy treatment with eroposide, colchicine, methotrexate and vincristine', 'The patient had received sequential treatment with cisplatin and cyclophosphamide, cisplatin and etoposide and subsequently tamoxifen', 'chlorambucil.', 'cytoxan, bleomycin and adriamycin', 'cisplatin, 5-fluorouracil and chlorambucil treatment.', 'The patient was treated with RTG, methotrexate, adriamycin, vincristine, cytoxan, and aramycin C', 'The patient was treated with cytoxan, vincristine, methotrexate and radiation therapy'], 'valuesChange': ['adriamycin and taxol', '5 years with Busulfan (1979-1984)', 'transcatheter arterial embolization with lipoidol plus doxorubicin', 'Cisplatin', 'treated by transcatheter arterial embolization with lipoidol plus a combination of doxorubicin and mitomycin C', 'Three courses of CAP; cyclophosphamide, adriamycin and cisplatin. Three courses of etoposide and cisplatin.', 'Six courses of CAP; cyclophosphamide, adriamycin and cis-platinum.', '5-FU', 'Cyclophosphamide', 'yclophosphamide, hydroxydaunomycin, vincristine, and prednisone (CHOP chemotherapy)', '7 year chlorambucil', '5-FU + Doxorubicin + Mitomycin C', '5 fluorouracil, doxorubicin and mitomycin C', 'Five courses of CAP; cyclophosphamide, adriamycin and cis-platinum.', '3 cycles of chemotherapy treatment with eroposide, colchicine, methotrexate and vincristine', 'The patient had received sequential treatment with cisplatin and cyclophosphamide, cisplatin and etoposide and subsequently tamoxifen', 'chlorambucil.', 'cytoxan, bleomycin and adriamycin', 'cisplatin, 5-fluorouracil and chlorambucil treatment.', 'The patient was treated with RTG, methotrexate, adriamycin, vincristine, cytoxan, and aramycin C', 'The patient was treated with cytoxan, vincristine, methotrexate and radiation therapy'] }, { 'name': 'COSMIC_ID', 'type': 'num', 'min': 683667.0, 'max': 1789883.0, 'minChange': 683667.0, 'maxChange': 1789883.0 }, { 'name': 'master_cell_id', 'type': 'num', 'min': 1.0, 'max': 2266.0, 'minChange': 1.0, 'maxChange': 2266.0 }, { 'name': 'cell_line_name', 'type': 'num', 'min': 697.0, 'max': 5637.0, 'minChange': 697.0, 'maxChange': 5637.0 }, { 'name': 'model_name', 'type': 'num', 'min': 697.0, 'max': 5637.0, 'minChange': 697.0, 'maxChange': 5637.0 }, { 'name': 'name', 'type': 'num', 'min': 697.0, 'max': 5637.0, 'minChange': 697.0, 'maxChange': 5637.0 }] }, { 'name': 'Protein', 'attributes': [] }, { 'name': 'Drug', 'attributes': [{ 'name': 'target_pathway', 'type': 'list', 'values': ['p53 pathway', 'Chromatin other', 'EGFR signaling', 'Protein stability and degradation', 'Other, kinases', 'RTK signaling', 'WNT signaling', 'Mitosis', 'PI3K/MTOR signaling', 'Other', 'Apoptosis regulation', 'Chromatin histone methylation', 'DNA replication', 'Metabolism', 'Cell cycle', 'Genome integrity', 'ERK MAPK signaling', 'IGF1R signaling', 'Cytoskeleton', 'Chromatin histone acetylation', 'JNK and p38 signaling', 'ABL signaling', 'Hormone-related', 'Unclassified'], 'valuesChange': ['p53 pathway', 'Chromatin other', 'EGFR signaling', 'Protein stability and degradation', 'Other, kinases', 'RTK signaling', 'WNT signaling', 'Mitosis', 'PI3K/MTOR signaling', 'Other', 'Apoptosis regulation', 'Chromatin histone methylation', 'DNA replication', 'Metabolism', 'Cell cycle', 'Genome integrity', 'ERK MAPK signaling', 'IGF1R signaling', 'Cytoskeleton', 'Chromatin histone acetylation', 'JNK and p38 signaling', 'ABL signaling', 'Hormone-related', 'Unclassified'] }, { 'name': 'drug_owner', 'type': 'list', 'values': ['GDSC', 'AZ', 'MGH', 'AZ_GDSC', 'Nathanael.Gray', 'SGC', 'Mike.Olson', 'Ed.Tate', 'baylor.college.of.medicine.peggy.goodell'], 'valuesChange': ['GDSC', 'AZ', 'MGH', 'AZ_GDSC', 'Nathanael.Gray', 'SGC', 'Mike.Olson', 'Ed.Tate', 'baylor.college.of.medicine.peggy.goodell'] }, { 'name': 'webrelease', 'type': 'list', 'values': ['Y', 'N'], 'valuesChange': ['Y', 'N'] }, { 'name': 'PUBCHEM', 'type': 'num', 'min': 1018.0, 'max': 126689157.0, 'minChange': 1018.0, 'maxChange': 126689157.0 }, { 'name': 'drug_id', 'type': 'num', 'min': 17.0, 'max': 2510.0, 'minChange': 17.0, 'maxChange': 2510.0 }] }], 'relationships': [{ 'name': 'HAS_PROTEIN_6692', 'n1': 'Cell_Line', 'n2': 'Protein', 'attributes': [{ 'name': 'Protein_Intensity', 'type': 'num', 'min': -4.058114592328761, 'max': 15.503639324498378, 'minChange': -4.058114592328761, 'maxChange': 15.503639324498378 }] }, { 'name': 'HAS_PROTEIN_8498', 'n1': 'Cell_Line', 'n2': 'Protein', 'attributes': [{ 'name': 'Protein_Intensity', 'type': 'num', 'min': -5.444587739880729, 'max': 15.652689341072046, 'minChange': -5.444587739880729, 'maxChange': 15.652689341072046 }] }, { 'name': 'TESTED_ON', 'n1': 'Drug', 'n2': 'Cell_Line', 'attributes': [{ 'name': 'dataset', 'type': 'list', 'values': ['GDSC1', 'GDSC2'], 'valuesChange': ['GDSC1', 'GDSC2'] }, { 'name': 'AUC', 'type': 'num', 'min': 0.0055058589737584365, 'max': 0.9999639441639192, 'minChange': 0.0055058589737584365, 'maxChange': 0.9999639441639192 }, { 'name': 'ln_IC50', 'type': 'num', 'min': -10.579286628308195, 'max': 12.359001840287563, 'minChange': -10.579286628308195, 'maxChange': 12.359001840287563 }, { 'name': 'num_replicates', 'type': 'num', 'min': 1.0, 'max': 181.0, 'minChange': 1.0, 'maxChange': 181.0 }, { 'name': 'max_screening_conc', 'type': 'num', 'min': 0.001, 'max': 4000.0, 'minChange': 0.001, 'maxChange': 4000.0 }, { 'name': 'RMSE', 'type': 'num', 'min': 0.001485906910673817, 'max': 0.2999572668734664, 'minChange': 0.001485906910673817, 'maxChange': 0.2999572668734664 }] }, { 'name': 'ASSOCIATION', 'n1': 'Drug', 'n2': 'Protein', 'attributes': [{ 'name': 'GDSC', 'type': 'list', 'values': ['GDSC2', 'GDSC1'], 'valuesChange': ['GDSC2', 'GDSC1'] }, { 'name': 'skew', 'type': 'num', 'min': -4.106193002139706, 'max': 1.9878671232784333, 'minChange': -4.106193002139706, 'maxChange': 1.9878671232784333 }, { 'name': 'r2', 'type': 'num', 'min': 0.1013839670288539, 'max': 0.7734339936656506, 'minChange': 0.1013839670288539, 'maxChange': 0.7734339936656506 }, { 'name': 'ppi', 'type': 'num', 'min': 1.0, 'max': 4.0, 'minChange': 1.0, 'maxChange': 4.0 }, { 'name': 'drug_id', 'type': 'num', 'min': 1.0, 'max': 2510.0, 'minChange': 1.0, 'maxChange': 2510.0 }, { 'name': 'nc_pval', 'type': 'num', 'min': 7.84946148385623e-43, 'max': 1.0, 'minChange': 7.84946148385623e-43, 'maxChange': 1.0 }, { 'name': 'nc_fdr', 'type': 'num', 'min': 4.341537146720881e-39, 'max': 1.0, 'minChange': 4.341537146720881e-39, 'maxChange': 1.0 }, { 'name': 'nc_beta', 'type': 'num', 'min': -2.19763946136419, 'max': 2.185802362170413, 'minChange': -2.19763946136419, 'maxChange': 2.185802362170413 }, { 'name': 'nc_lr', 'type': 'num', 'min': -7.503331289626658e-12, 'max': 188.20184113361572, 'minChange': -7.503331289626658e-12, 'maxChange': 188.20184113361572 }, { 'name': 'pval', 'type': 'num', 'min': 1.0023245614279191e-15, 'max': 0.9999987968766584, 'minChange': 1.0023245614279191e-15, 'maxChange': 0.9999987968766584 }, { 'name': 'fdr', 'type': 'num', 'min': 5.548868772064962e-12, 'max': 0.9999987968766584, 'minChange': 5.548868772064962e-12, 'maxChange': 0.9999987968766584 }, { 'name': 'lr', 'type': 'num', 'min': 2.273736754432321e-12, 'max': 64.42588874796547, 'minChange': 2.273736754432321e-12, 'maxChange': 64.42588874796547 }, { 'name': 'covs', 'type': 'num', 'min': 19.0, 'max': 22.0, 'minChange': 19.0, 'maxChange': 22.0 }, { 'name': 'n', 'type': 'num', 'min': 61.0, 'max': 916.0, 'minChange': 61.0, 'maxChange': 916.0 }, { 'name': 'beta', 'type': 'num', 'min': -1.9500100915153256, 'max': 2.57257140936904, 'minChange': -1.9500100915153256, 'maxChange': 2.57257140936904 }] }] });
   const [globalGraphInformation, setGlobalGraphInformation] = useState(null);
@@ -50,6 +51,7 @@ const Panel = ({ selectedNodes, cy, setCy, setSelectedNodes, nodeTypes, selected
   const [groupingGroup, setGroupingGroup] = useState('tSNE');
   const [shortestPathAllowedConnections, setShortestPathAllowedConnections] = useState([]);
   const [isCheckedAbsolut, setIsCheckedAbsolut] = useState(false);
+  const [isCheckedShownNodes, setIsShownNodes] = useState(false);
 
 
   const clusterNamesMatching = [['Drug-Drug GDSC1 Cosine tSNE global', 'GDSC1', 'Drug-Drug', 'tSNE'],
@@ -107,6 +109,9 @@ const Panel = ({ selectedNodes, cy, setCy, setSelectedNodes, nodeTypes, selected
   };
   const handleRemoveClustering = () => {
     applyRemoveCluster(true);
+  };
+  const handleOptionChange = e => {
+    setSelectedOption(e.target.value);
   };
 
   useEffect(() => {
@@ -1048,21 +1053,39 @@ const Panel = ({ selectedNodes, cy, setCy, setSelectedNodes, nodeTypes, selected
       all_seed_uids.push(selectedNodes[i].uid)
     }
     var allowed_connection_types = "";
-    if (selectedEntity4 && selectedEntity4.length > 0) {
-      allowed_connection_types = "r:";
-      for (let i = 0; i < selectedEntity4.length; i++) {
-        if (i !== 0) {
-          allowed_connection_types = allowed_connection_types + "|";
-        }
-        allowed_connection_types = allowed_connection_types + selectedEntity4[i];
+    var match_query = "";
+    if (selectedEntity4 && selectedEntity4.length === 1 && selectedEntity4[0] === "ASSOCIATION"){
+      var match_connection2 = "MATCH (startNode {uid: " + JSON.stringify(all_seed_uids[0]) + "}), (endNode {uid: " + JSON.stringify(all_seed_uids[1]) + "})";
+      if (selectedOption == "option1"){//GDSC1 and GDSC2
+        var shortestPath2 = "\nMATCH path = (startNode)-[r:ASSOCIATION]-(endNode)";
       }
+      if (selectedOption == "option2"){//GDSC1
+        var shortestPath2 = "\nMATCH path = (startNode)-[r:ASSOCIATION]-(endNode) WHERE r.GDSC='GDSC1'";
+      }
+      if (selectedOption == "option3"){//GDSC2
+        var shortestPath2 = "\nMATCH path = (startNode)-[r:ASSOCIATION]-(endNode) WHERE r.GDSC='GDSC2'";
+      }
+      var returnValues2 = "\WITH nodes(path) AS s, relationships(path) AS r";
+    var apoc2 = "\nCALL apoc.export.json.data(s, r, null, {stream: true})\nYIELD data\nRETURN data"
+    match_query = match_connection2 + shortestPath2 + returnValues2 + apoc2;
+    }else{
+      if (selectedEntity4 && selectedEntity4.length > 0) {
+        allowed_connection_types = "r:";
+        for (let i = 0; i < selectedEntity4.length; i++) {
+          if (i !== 0) {
+            allowed_connection_types = allowed_connection_types + "|";
+          }
+          allowed_connection_types = allowed_connection_types + selectedEntity4[i];
+        }
+      }
+      allowed_connection_types = allowed_connection_types + "*";
+      var match_connection = "MATCH (startNode {uid: " + JSON.stringify(all_seed_uids[0]) + "}), (endNode {uid: " + JSON.stringify(all_seed_uids[1]) + "})";
+      var shortestPath = "\nMATCH path = shortestPath((startNode)-[" + allowed_connection_types + "]-(endNode))";
+      var returnValues = "\WITH nodes(path) AS s, relationships(path) AS r";
+      var apoc = "\nCALL apoc.export.json.data(s, r, null, {stream: true})\nYIELD data\nRETURN data"
+      match_query = match_connection + shortestPath + returnValues + apoc;
+
     }
-    allowed_connection_types = allowed_connection_types + "*";
-    var match_connection = "MATCH (startNode {uid: " + JSON.stringify(all_seed_uids[0]) + "}), (endNode {uid: " + JSON.stringify(all_seed_uids[1]) + "})";
-    var shortestPath = "\nMATCH path = shortestPath((startNode)-[" + allowed_connection_types + "]-(endNode))";
-    var returnValues = "\WITH nodes(path) AS s, relationships(path) AS r";
-    var apoc = "\nCALL apoc.export.json.data(s, r, null, {stream: true})\nYIELD data\nRETURN data"
-    var match_query = match_connection + shortestPath + returnValues + apoc;
 
     setQuery(match_query);
   };
@@ -1513,21 +1536,21 @@ axios.post('https://api.drugst.one/create_network', postData)
           <div>
             <Tooltip title={isButtonDisabledAnalysis ? 'Select one or more nodes' : ''}>
               <Button disabled={isButtonDisabledAnalysis} type="default" icon={<RadarChartOutlined />} onClick={showModal} style={{ display: 'block' }}>
-                Find Connections
+              Find multiple Connections
               </Button>
             </Tooltip>
             <Tooltip title={isButtonDisabledShortestPath ? 'Select two nodes' : ''}>
               <Button disabled={isButtonDisabledShortestPath} type="default" icon={<RadarChartOutlined />} onClick={showModalShortestPath} style={{ display: 'block' }}>
-                Shortest Path
+                Find Connection
               </Button>
             </Tooltip>
-            <Modal title="Shortest Path" open={isModalShortestPath} onOk={handleOkShortestPath} onCancel={handleShortestPathCancel} width={650} okButtonProps={{
+            <Modal title="Find Connection" open={isModalShortestPath} onOk={handleOkShortestPath} onCancel={handleShortestPathCancel} width={650} okButtonProps={{
               onClick: handleOkShortestPath, // Custom click event handler
               style: { backgroundColor: '#4096FF' }
             }}>
               {shortestPathAllowedConnections.length > 0 && (
                 <div>
-                  <p style={{ fontSize: "14px" }}>Select the connections that can be used to find the shortest path</p>
+                  <p style={{ fontSize: "14px" }}>Select the edge types that can be used to find the connection.</p>
 
                   <Select
                     mode="multiple"
@@ -1544,11 +1567,21 @@ axios.post('https://api.drugst.one/create_network', postData)
                       </Option>
                     ))}
                   </Select>
-                  <p style={{ fontSize: "10px" }}>Note: When nothing is selected, all edges can be used to find the shortest path.</p>
+                  <p style={{ fontSize: "10px" }}>Note: When nothing is selected, all edges can be used to find the connection.</p>
+                  {selectedEntity4 && Array.isArray(selectedEntity4) && selectedEntity4.length === 1 && selectedEntity4[0] === "ASSOCIATION" && (
+ <div>
+  <p>What dataset ASSOCIATIONs should be given back?</p>
+ <Radio.Group onChange={handleOptionChange} value={selectedOption}>
+   <Radio value="option1">GDSC1 and GDSC2</Radio>
+   <Radio value="option2">GDSC1</Radio>
+   <Radio value="option3">GDSC2</Radio>
+ </Radio.Group>
+</div>
+)}
                 </div>
               )}
             </Modal>
-            <Modal title="Find Connections" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={650} okButtonProps={{
+            <Modal title="Find multiple Connections" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={650} okButtonProps={{
               onClick: handleOk, // Custom click event handler
               style: { backgroundColor: '#4096FF' }
             }}>
@@ -1882,6 +1915,7 @@ axios.post('https://api.drugst.one/create_network', postData)
           <div>
             <Collapse style={{ width: '400px' }}>
               {filterInfo.nodes.map((node_property, index) => (
+                (node_property.attributes.length > 0) ? (
                 <Collapse.Panel header={handleBetterText2(node_property.name)} key={`panel_${index}`} style={{ width: '400px' }}>
                   <Row gutter={[16, 16]} style={{ width: '800px' }}>
                     <div key={node_property.name}>
@@ -1928,6 +1962,7 @@ axios.post('https://api.drugst.one/create_network', postData)
                     </div>
                   </Row>
                 </Collapse.Panel>
+                ):null
               ))}
             </Collapse>
           </div>

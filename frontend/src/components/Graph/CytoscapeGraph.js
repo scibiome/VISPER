@@ -116,6 +116,22 @@ const CreateGraph = (props) => {
       key: 'nvalues',
       children: [{ label: "Default", key: "4001" }, { label: "ATC-Codes", key: "4003" }, { label: "Drug Types", key: "4005" }, { label: "Drug Indication", key: "4006" }],
     },
+    {
+      label: 'Edge Thickness',
+      key: 'ethick',
+      children: [{"type":"group","label":"ASSOCIATION","children":[{"label":"beta","key":"501","checked": false, "areas":[0.0, 0.009, 0.018, 0.028, 0.038, 0.051, 0.066, 0.085, 0.113, 0.162]}, 
+      {"label":"nc_beta","key":"503","checked":false, "areas":[0.0, 0.009, 0.018, 0.029, 0.04, 0.054, 0.071, 0.092, 0.123, 0.179]},
+      {"label":"fdr","key":"504","checked":false, "areas":[0.0, 0.52887, 0.69349, 0.79064, 0.85504, 0.9018, 0.93711, 0.96328, 0.98179, 0.99501]},
+      {"label":"nc_fdr","key":"505","checked":false, "areas":[0.0, 0.15491, 0.36255, 0.52353, 0.64771, 0.74538, 0.82282, 0.88483, 0.93417, 0.973]},
+      {"label":"pval","key":"506","checked":false, "areas":[0.0, 0.056, 0.138, 0.231, 0.332, 0.437, 0.546, 0.657, 0.77, 0.884]},
+      {"label":"nc_pval","key":"507","checked":false, "areas":[0.0, 0.016, 0.069, 0.148, 0.244, 0.353, 0.472, 0.598, 0.73, 0.864]},
+      {"label":"skew","key":"508","checked":false, "areas":[-4.106, -1.086, -0.733, -0.51, -0.318, -0.175, -0.014, 0.162, 0.407, 0.639]}]},
+      {"type":"group","label":"LOW_CONFIDENCE","children":[{"label":"Protein_Intensity","key":"509","checked":false, "areas":[-5.445, 1.514, 2.159, 2.616, 3.025,3.441, 3.906, 4.464, 5.185, 6.281]}]},
+      {"type":"group","label":"HIGH_CONFIDENCE","children":[{"label":"Protein_Intensity","key":"510","checked":false, "areas":[-4.058, 2.276, 2.818, 3.23, 3.618, 4.023, 4.477, 5.02, 5.717, 6.795]}]},
+      {"type":"group","label":"TESTED_ON","children":[{"label":"ln_IC50","key":"511","checked":false, "areas":[-10.579, -1.407, 0.455, 1.5, 2.219, 2.853, 3.467, 4.089, 4.734, 5.492]}]},
+      {"type":"group","label":"DRUG_SIMILARITY","children":[{"label":"value","key":"512","checked":false, "areas":[0.004, 0.022, 0.032, 0.043, 0.055, 0.07, 0.089, 0.115, 0.153, 0.222]}]}
+    ],
+    },
   ];
   const [item, setItem] = useState(items);
   const containerRef = useRef(null);
@@ -142,6 +158,7 @@ const CreateGraph = (props) => {
    */
   const [filterSettingsNodes, setFilterSettingsNodes] = useState([]);
   const [filterSettingsEdges, setFilterSettingsEdges] = useState([]);
+  const [filterSettingsEdgesThickness, setFilterSettingsEdgesThickness] = useState([]);
   //backup data to switch between global and local view
   const [selectNewNode, setSelectNewNode] = useState(null);
   const [deselectNewNode, setDeselectNewNode] = useState(null);
@@ -591,6 +608,45 @@ const CreateGraph = (props) => {
   const handleCheckboxChange = (menuItemKey, menuItemLabel, childKey, childLabel) => {
     console.log("591", menuItemKey, menuItemLabel, childKey, childLabel);
     const updatedItems = [...item]; // Create a copy of the items array
+    console.log(childKey !== null, parseInt(childKey) > 500, parseInt(childKey));
+    if (childKey !== null && parseInt(childKey) >= 500){
+      updatedItems.forEach((menuItem) => {
+        console.log(603);
+        if (menuItem.label === "Edge Thickness") {
+
+          menuItem.children = menuItem.children.map((child) => {
+            let childContainsKey = false;
+        
+            // First pass: determine if any nested child matches the key
+            child.children.forEach((nestedChild) => {
+              if (nestedChild.key === childKey) {
+                childContainsKey = true;
+              }
+            });
+        
+            // Second pass: update the checked state only if the key was found
+            if (childContainsKey) {
+              child.children = child.children.map((nestedChild) => {
+                if (nestedChild.key === childKey) {
+                  return { ...nestedChild, checked: !nestedChild.checked };
+                } else {
+                  return { ...nestedChild, checked: false };
+                }
+              });
+            }
+        
+            return child;
+          });
+          console.log(603, JSON.stringify(menuItem.children));
+          setFilterSettingsEdgesThickness(menuItem.children);
+          console.log(603);
+
+
+        }
+      });
+    }else{
+
+    
     if (typeof menuItemKey !== 'undefined') {
       updatedItems.forEach((menuItem) => {
         if (menuItem.key === menuItemKey) {
@@ -640,7 +696,7 @@ const CreateGraph = (props) => {
         return item;
       }));
     }
-
+  }
     if (menuItemLabel === "Other Settings") {
       const changeShowLabel = !showLabels;
       if (changeShowLabel) {
@@ -1046,6 +1102,7 @@ const CreateGraph = (props) => {
    * @param {*} type 
    */
   const handleExportData = (type) => {
+    console.log(1054, JSON.stringify(item));
     // Replace this example JSON data with your own data
     if (type === "json") {
       // Get visible nodes and edges
@@ -1891,7 +1948,7 @@ const CreateGraph = (props) => {
                 label: 'data(name)',
                 'border-width': '4px',
                 'border-color': 'gray',
-                'background-color': '#fb8500',
+                'background-color': '#BD2137',
             }).selector("edge")
             .style({
               "curve-style": "bezier",
@@ -2003,6 +2060,35 @@ const CreateGraph = (props) => {
       cy.edges().forEach(edge => {
         const edgeType = edge.data('label');
         var foundObject = { show: true };
+        var setEdgeThickness = 3;
+
+        /**Set thickness */
+        console.log("2058");
+        for(let o =0; o < filterSettingsEdgesThickness.length; o++){
+          console.log(2058, filterSettingsEdgesThickness[o].label);
+          if(edgeType === filterSettingsEdgesThickness[o].label){
+            for(let u =0; u < filterSettingsEdgesThickness[o].children.length; u++){
+              if(filterSettingsEdgesThickness[o].children[u].checked){
+                var element_value = edge.data(filterSettingsEdgesThickness[o].children[u].label);
+                if(filterSettingsEdgesThickness[o].children[u].label === "beta" || filterSettingsEdgesThickness[o].children[u].label === "nc_beta"){
+                  element_value = Math.abs(element_value);
+                }
+                var area_values = filterSettingsEdgesThickness[o].children[u].areas
+                for(let z=area_values.length-1; z >-1; z--){
+                  if(area_values[z] <= element_value){
+                    setEdgeThickness = (1 + z)*2
+                    break;
+                  }
+                }
+                break;
+              }
+            }
+            break;
+          }
+        }
+        edge.style('width', setEdgeThickness);
+
+
         if (!showLocalView && edgeType === activeClusterConnections) {
           foundObject = { show: true };
         } else {
@@ -2037,7 +2123,7 @@ const CreateGraph = (props) => {
         }
       });
     }
-  }, [filterSettingsNodes, filterSettingsEdges, filterSettingsAttributes, updateGraph, visibleModal, showLegend]);
+  }, [filterSettingsNodes, filterSettingsEdges, filterSettingsAttributes, updateGraph, visibleModal, showLegend, filterSettingsEdgesThickness]);
   /**
    * Run Neo4j Query and add data
    */

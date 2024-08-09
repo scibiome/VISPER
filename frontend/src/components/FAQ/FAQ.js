@@ -34,8 +34,8 @@ const FAQ = () => {
           <p>- HIGH CONFIDENCE: Proteomics data for 6692 proteins supported by measuring more than one peptide at the cell line level, averaged across all the replicates.</p>
           <br/>
           <h1 style={{ fontWeight: 'bold', textAlign: 'left' }}>4. What do the Analyse tools do?</h1>
-          <p><strong>- Find Connections:</strong> This tool allows you to discover connections from one or more selected nodes to other nodes that have a relationship with the selected nodes. You can specify criteria for the nodes and relationships that should be returned.</p>
-<p><strong>- Shortest Path:</strong> When you select two nodes, this tool finds the shortest path between them in the network graph. You can also define which types of connections are allowed in the shortest path.</p>
+          <p><strong>- Find multiple Connections:</strong> This tool allows you to discover connections from one or more selected nodes to other nodes that have a relationship with the selected nodes. You can specify criteria for the nodes and relationships that should be returned.</p>
+<p><strong>- Find Connection:</strong> When you select two nodes, this tool finds the shortest path between them in the network graph. You can also define which types of connections are allowed in the shortest path.</p>
 <p><strong>- Explore PPI Neighborhood:</strong> This tool identifies proteins connected to a group of selected proteins based on their centrality in the BioGRID PPI network relative to the selected proteins. The algorithm is based on the code and documentation from  <a href="https://drugst.one/">Drugst.One</a>. Note that differences between the implementation and database in Drugst.One and VISPER may lead to varying results.</p>
 <p><strong>- Find Nearest ProCan Protein:</strong> This tool identifies the closest ProCan Protein for proteins found in the BioGRID database but not in the ProCan database. It utilizes a shortest path algorithm. This function is crucial because our database primarily contains information on relationships involving ProCan Proteins with entities such as cell lines or drugs.</p>
 <br/>

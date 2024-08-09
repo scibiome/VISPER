@@ -139,7 +139,7 @@ const LegendComponent = ({ showLegend, setShowLegend }) => {
              style={{
                width: '20px',
                height: '20px',
-               backgroundColor: item.show ? 'grey' : '#fb8500',
+               backgroundColor: item.show ? 'grey' : '#BD2137',
                marginRight: '8px',
                cursor: 'pointer',
              }}
