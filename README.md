@@ -7,16 +7,16 @@ To use VISPER locally on your PC, we recommend using the Docker version of VISPE
 
 ## Video Tutorials
 
-# Exploration of significant associations between drug responses and protein measurements:
+### Exploration of significant associations between drug responses and protein measurements:
 
 [![Watch the video](https://img.youtube.com/vi/xMHmf7DHU3c/0.jpg)](https://youtu.be/xMHmf7DHU3c)
 
 
-# Finding information about specific drug-protein associations and pathways of interest
+### Finding information about specific drug-protein associations and pathways of interest
 
 [![Watch Video 1](https://img.youtube.com/vi/-x9TnTY8G3I/0.jpg)](https://youtu.be/-x9TnTY8G3I)
 
-# Interactive Graphs
+### Interactive Graphs
 
 [![Watch Video 2](https://img.youtube.com/vi/egKkV9iHY4A/0.jpg)](https://youtu.be/egKkV9iHY4A)
 
