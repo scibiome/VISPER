@@ -18,7 +18,7 @@ To use VISPER locally on your PC, we recommend using the Docker version of VISPE
 
 ### Interactive Graphs
 
-[![Watch Video 2](https://img.youtube.com/vi/egKkV9iHY4A/0.jpg)](https://youtu.be/egKkV9iHY4A)
+[![Watch Video](https://img.youtube.com/vi/egKkV9iHY4A/0.jpg)](https://youtu.be/egKkV9iHY4A)
 
 
 ## Structure
