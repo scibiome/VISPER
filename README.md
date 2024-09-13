@@ -7,7 +7,7 @@ To use VISPER locally on your PC, we recommend using the Docker version of VISPE
 
 ## Video Tutorials
 
-### Exploration of significant associations between drug responses and protein measurements:
+### Exploration of significant associations between drug responses and protein measurements
 
 [![Watch the video](https://img.youtube.com/vi/xMHmf7DHU3c/0.jpg)](https://youtu.be/xMHmf7DHU3c)
 
