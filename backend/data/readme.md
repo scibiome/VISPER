@@ -1,1 +1,0 @@
-Note: in this folder uploaded files are saved.
